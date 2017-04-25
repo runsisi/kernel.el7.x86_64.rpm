@@ -1,0 +1,14 @@
+diff -Nur a/Makefile b/Makefile
+--- a/Makefile	2017-04-25 09:50:03.128258388 +0800
++++ b/Makefile	2017-04-24 22:31:06.479817000 +0800
+@@ -965,6 +965,10 @@
+ 	$(CONFIG_SHELL) $< $(LD) $(LDFLAGS) $(LDFLAGS_vmlinux) ;       \
+ 	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
+ 
++ifdef AFTER_LINK
++    cmd_link-vmlinux += ; $(AFTER_LINK)
++endif
++
+ vmlinux: scripts/link-vmlinux.sh vmlinux_prereq $(vmlinux-deps) FORCE
+ 	+$(call if_changed,link-vmlinux)
+ 
